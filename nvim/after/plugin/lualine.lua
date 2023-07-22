@@ -1,3 +1,4 @@
+-- Remember to use Nerd Fonts: https://webinstall.dev/nerdfont/
 require('lualine').setup {
     options = {
         icons_enabled = true,
