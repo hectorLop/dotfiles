@@ -2,11 +2,11 @@
 -- Hint: string concatenation is done by `..`
 local ensure_packer = function()
     local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-      fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-      vim.cmd [[packadd packer.nvim]]
-      return true
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+        vim.cmd [[packadd packer.nvim]]
+        return true
     end
     return false
 end
@@ -23,28 +23,28 @@ local packer_bootstrap = ensure_packer()
 --]])
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-  return
+    return
 end
 
 -- Have packer use a popup window
 packer.init({
     display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'single' })
-      end
+        open_fn = function()
+            return require('packer.util').float({ border = 'single' })
+        end
     }
-  }
+}
 )
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
+    use "nvim-lua/popup.nvim"   -- An implementation of the Popup API from vim in Neovim
     use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.2',
-        requires = { {'nvim-lua/plenary.nvim'} } 
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     use({
@@ -54,8 +54,27 @@ return require('packer').startup(function(use)
             vim.cmd('colorscheme rose-pine')
         end
     })
-  
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    -- use ({ "RRethy/nvim-base16" })
+    -- use ({ "habamax/vim-gruvbit" })
+    use ({ "sainnhe/gruvbox-material" })
+    ----use({
+    ----    "ellisonleao/gruvbox.nvim",
+    ----    as = 'gruvbox',
+    ----    config = function()
+    ----        require("gruvbox").setup({
+    ----            contrast = "hard",
+    ----            overrides = {
+    ----                ["@punctuation.bracket"] = { link = "Special" },
+    ----                ["@punctuation.delimiter"] = { link = "Special" },
+    ----                ["@punctuation.special"] = { link = "Special" },
+    ----            },
+    ----        })
+    ----        vim.cmd("colorscheme gruvbox")
+    ----        vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
+    ----    end
+    ----})
+
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use('theprimeagen/harpoon')
     use('tpope/vim-fugitive')
@@ -64,27 +83,29 @@ return require('packer').startup(function(use)
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         }
     }
+    use("jay-babu/mason-null-ls.nvim")
+    use("jose-elias-alvarez/null-ls.nvim")
 
     use('preservim/nerdtree')
 
     use {
         'linrongbin16/lsp-progress.nvim',
-        requires = {'nvim-tree/nvim-web-devicons'},
+        requires = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('lsp-progress').setup()
         end
@@ -93,8 +114,8 @@ return require('packer').startup(function(use)
     use {
         'nvim-lualine/lualine.nvim',
         requires = {
-            {'nvim-tree/nvim-web-devicons'},
-            {'linrongbin16/lsp-progress.nvim'},
+            { 'nvim-tree/nvim-web-devicons' },
+            { 'linrongbin16/lsp-progress.nvim' },
         }
     }
 
